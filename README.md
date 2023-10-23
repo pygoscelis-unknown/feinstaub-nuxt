@@ -1,6 +1,4 @@
-# Nuxt 3 Minimal Starter
-
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# feinstaub.app Frontend
 
 ## Setup
 
@@ -73,3 +71,14 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Changelog
+
+We use [changelogen](https://github.com/unjs/changelogen) to generate our changelogs.
+
+```
+npx changelogen@latest
+npx changelogen@latest --bump
+npx changelogen@latest --release
+```
+
