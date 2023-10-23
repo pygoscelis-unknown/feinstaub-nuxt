@@ -1,5 +1,5 @@
 <template>
   <div>
-    <NuxtWelcome />
+    <UButton icon="i-heroicons-pencil-square" label="Button" />
   </div>
 </template>
