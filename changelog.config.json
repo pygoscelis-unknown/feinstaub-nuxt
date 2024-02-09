@@ -7,7 +7,8 @@
         "title": "🐞 Bug Fixes"
       },
       "chore": {
-        "title": "🧹 Chores"
+        "title": "🧹 Chores",
+        "semver": "patch"
       },
       "refactor": {
         "title": "♻️ Refactor"
@@ -22,10 +23,12 @@
         "title": "📄 Docs"
       },
       "style": {
-        "title": "👨‍🎤 Style"
+        "title": "👨‍🎤 Style",
+        "semver": "patch"
       },
       "ci": {
-        "title": "🚚 CI/CD"
+        "title": "🚚 CI/CD",
+        "semver": "minor"
       }
     }
   }
