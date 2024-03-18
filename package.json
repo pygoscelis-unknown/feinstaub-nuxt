@@ -19,7 +19,7 @@
     "@antfu/eslint-config": "1.0.0-beta.28",
     "@nuxt/devtools": "latest",
     "eslint": "^8.52.0",
-    "nuxt": "^3.8.0",
+    "nuxt": "^3.11.1",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5"
   }
