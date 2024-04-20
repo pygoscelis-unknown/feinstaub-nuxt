@@ -1,4 +1,8 @@
 {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pygoscelis-unknown/feinstaub.app.git"
+  },
     "types": {
       "feat": {
         "title": "🚀 Features"
