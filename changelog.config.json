@@ -3,34 +3,34 @@
     "type": "git",
     "url": "https://github.com/pygoscelis-unknown/feinstaub.app.git"
   },
-    "types": {
-      "feat": {
-        "title": "🚀 Features"
-      },
-      "fix": {
-        "title": "🐞 Bug Fixes"
-      },
-      "chore": {
-        "title": "🧹 Chores",
-        "semver": "patch"
-      },
-      "refactor": {
-        "title": "♻️ Refactor"
-      },
-      "build": {
-        "title": "🏗 Build"
-      },
-      "test": {
-        "title": "🧪 Test"
-      },
-      "docs": {
-        "title": "📄 Docs"
-      },
-      "style": {
-        "title": "👨‍🎤 Style",
-        "semver": "patch"
-      },
-      "ci": {
+  "types": {
+    "feat": {
+      "title": "🚀 Features"
+    },
+    "fix": {
+      "title": "🐞 Bug Fixes"
+    },
+    "chore": {
+      "title": "🧹 Chores",
+      "semver": "patch"
+    },
+    "refactor": {
+      "title": "♻️ Refactor"
+    },
+    "build": {
+      "title": "🏗 Build"
+    },
+    "test": {
+      "title": "🧪 Test"
+    },
+    "docs": {
+      "title": "📄 Docs"
+    },
+    "style": {
+      "title": "👨‍🎤 Style",
+      "semver": "patch"
+    },
+    "ci": {
         "title": "🚚 CI/CD",
         "semver": "minor"
       }
