@@ -13,11 +13,13 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/ui": "^2.16.0"
+    "@nuxt/ui": "^2.16.0",
+    "d3": "^7.9.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "2.15.0",
     "@nuxt/devtools": "latest",
+    "@types/d3": "^7.4.3",
     "eslint": "^9.1.0",
     "nuxt": "^3.11.2",
     "vue": "^3.4.23",
