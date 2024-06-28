@@ -2,11 +2,12 @@
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
-      apiBaseUrl: process.env.API_BASE_URL || 'https://feinstaub-django.onrender.com'
-    }
+
+      apiBaseUrl: '',
+    },
   },
   devtools: { enabled: true },
-  modules: ['@nuxt/ui'],
+  modules: ['@nuxt/ui', 'nuxt3-leaflet'],
   ui: {
     global: true,
   },
