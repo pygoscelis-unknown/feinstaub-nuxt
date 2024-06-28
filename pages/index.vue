@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 const config = useRuntimeConfig()
-const { data, pending, error } = useFetch<string>(`${config.public.apiBaseUrl}/bme280s/`)
+const { data, pending, error } = useFetch<string>(`${config.public.apiBaseUrl}/bme280/`)
 
 interface SensorBme280 {
   sensor_id: string
