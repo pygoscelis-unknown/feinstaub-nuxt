@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 const config = useRuntimeConfig()
-const { data, pending, error } = useFetch<string>(`${config.public.apiBaseUrl}/bme280/`)
+const { data, pending, error } = useFetch<ApiResponse<SensorBme280>>(`${config.public.apiBaseUrl}/bme280/?formatJson`)
 
 interface SensorBme280 {
   sensor_id: string
@@ -9,10 +9,6 @@ interface SensorBme280 {
   lon: number
   timestamp: string
 }
-const sanitizedData = ref<Array<SensorBme280> | null>(null)
-
-if (data.value)
-  sanitizedData.value = JSON.parse(data.value.replace(/\bNaN\b/g, 'null'))
 
 function formatDate(timestamp: string) {
   const date = new Date(timestamp)
@@ -33,7 +29,7 @@ function formatDate(timestamp: string) {
           <p>Data loading...</p>
         </div>
         <div v-else-if="data" class="grid md:grid-cols-3 gap-4">
-          <div v-for="(item, index) in sanitizedData" :key="`sensor-${item.sensor_id}-${index}`">
+          <div v-for="(item, index) in data.results" :key="`sensor-${item.sensor_id}-${index}`">
             <UCard>
               <template #header>
                 <p>Sensor ID: {{ item.sensor_id }}</p>
