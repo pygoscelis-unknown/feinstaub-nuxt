@@ -1,6 +1,5 @@
 <script setup lang='ts'>
-const config = useRuntimeConfig()
-const { data, pending, error } = useFetch<ApiResponse<SensorBme280>>(`${config.public.apiBaseUrl}/bme280/?formatJson`)
+const { data, pending, error } = await useFetch<ApiResponse<SensorBme280>>(`/api/bme280`, { method: 'POST' })
 
 interface SensorBme280 {
   sensor_id: string
@@ -19,32 +18,50 @@ function formatDate(timestamp: string) {
 <template>
   <section class="py-10">
     <BaseContainer>
-      <section>
-        <h1 class="text-5xl mb-6">
-          feinstaub.app headline für hero section
-        </h1>
+      <section class="pb-20">
+        <div class="w-1/2">
+          <h1 class="text-5xl font-bold mb-6">
+            feinstaub.app
+          </h1>
+          <p class="text-xl">
+            This is a project inspired by <a href="https://sensor.community">sensor.community</a>. We import data from their archive and display them to try to bring them into different contexts to make the data even more useful.
+          </p>
+          <div class="flex gap-2">
+            <UButton to="/map" type="" class="mt-6">
+              Show Map
+            </UButton>
+            <UButton to="https://sensor.community" variant="outline" class="mt-6">
+              Go to sensor.community
+            </UButton>
+          </div>
+        </div>
       </section>
       <section>
         <div v-if="pending">
           <p>Data loading...</p>
         </div>
-        <div v-else-if="data" class="grid md:grid-cols-3 gap-4">
-          <div v-for="(item, index) in data.results" :key="`sensor-${item.sensor_id}-${index}`">
-            <UCard>
-              <template #header>
-                <p>Sensor ID: {{ item.sensor_id }}</p>
-              </template>
-              <div class="mb-4">
-                <p>sensor_type: {{ item.sensor_type }}</p>
-                <p>Latitude: {{ item.lat }}</p>
-                <p>Longitude: {{ item.lon }}</p>
-                <p>Longitude: {{ item.lon }}</p>
-                <p>timestamp: {{ formatDate(item.timestamp) }}</p>
-              </div>
-              <code class="text-sm sm:text-base inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-4 pl-6">
-                {{ item }}
-              </code>
-            </UCard>
+        <div v-else-if="data">
+          <h2 class="font-bold mb-6 text-xl">
+            Sensor data
+          </h2>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div v-for="(item, index) in data.results" :key="`sensor-${item.sensor_id}-${index}`">
+              <UCard>
+                <template #header>
+                  <p>Sensor ID: {{ item.sensor_id }}</p>
+                </template>
+                <div class="mb-4">
+                  <p>sensor_type: {{ item.sensor_type }}</p>
+                  <p>Latitude: {{ item.lat }}</p>
+                  <p>Longitude: {{ item.lon }}</p>
+                  <p>Longitude: {{ item.lon }}</p>
+                  <p>timestamp: {{ formatDate(item.timestamp) }}</p>
+                </div>
+                <code class="text-sm sm:text-base inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-4 pl-6">
+                  {{ item }}
+                </code>
+              </UCard>
+            </div>
           </div>
         </div>
         <div v-else-if="error">
