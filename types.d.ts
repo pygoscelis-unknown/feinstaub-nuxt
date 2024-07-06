@@ -4,7 +4,7 @@ interface ApiResponse<T> {
   previous: string | null
   results: T[]
 }
-interface Marker {
+interface SensorPms1003 {
   P0?: number | null
   P1: number
   P2: number

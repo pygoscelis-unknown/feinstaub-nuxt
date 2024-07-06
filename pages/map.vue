@@ -3,10 +3,9 @@ import { ref } from 'vue'
 import type { LatLngExpression } from 'leaflet'
 
 const zoom = ref(6)
-const config = useRuntimeConfig()
-const { data, pending } = useFetch<ApiResponse<Marker>>(`${config.public.apiBaseUrl}/pms1003/?format=json`)
+const { data, pending } = await useFetch<ApiResponse<SensorPms1003>>(`/api/pms1003`, { method: 'POST' })
 
-function getCoordinates(marker: Marker): LatLngExpression {
+function getCoordinates(marker: SensorPms1003): LatLngExpression {
   return { lat: marker.lat, lng: marker.lon }
 }
 function updateLatLng(event: any) {
