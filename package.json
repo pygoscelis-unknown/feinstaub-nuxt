@@ -18,7 +18,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "2.15.0",
     "@nuxt/devtools": "latest",
-    "eslint": "^9.1.0",
+    "eslint": "^9.7.0",
     "nuxt": "^3.11.2",
     "vue": "^3.4.23",
     "vue-router": "^4.3.2"
