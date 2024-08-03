@@ -7,7 +7,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <label class="block text-sm font-medium text-gray-700">
+  <label class="block text-sm font-normal text-gray-400">
     <slot><span>{{ text }}</span></slot>
   </label>
 </template>
