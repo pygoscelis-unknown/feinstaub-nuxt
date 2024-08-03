@@ -1,0 +1,71 @@
+<script setup lang="ts">
+import { getCoordinates, getMarkerRadius, getTemperatureColor } from '~/utils/utils'
+import { useTimeRangeSelector } from '~/composables/timeRangeSelector'
+
+const { selectedDate, selectedYear, isPlaying, selectedMonth, selectedDay } = useTimeRangeSelector()
+const pending = ref(true)
+const initialData = ref()
+const intervalId = ref<number | null>(null)
+
+async function fetchData() {
+  const response = await $fetch<ApiResponse<SensorBmp180>>(`/api/bmp180`, { method: 'POST', query: { year: selectedYear.value, month: selectedMonth.value, day: selectedDay.value, limit: 100 } })
+  initialData.value = response
+  pending.value = false
+}
+
+async function fetchPlayData() {
+  if (intervalId.value !== null)
+    clearInterval(intervalId.value) // Clear any existing interval
+
+  intervalId.value = setInterval(() => {
+    if (Number.parseInt(selectedDay.value) < 30) {
+      selectedDay.value = (Number.parseInt(selectedDay.value) + 1).toString().padStart(2, '0')
+      selectedDate.value = `${selectedYear.value}-${selectedMonth.value}-${selectedDay.value}`
+      fetchData()
+    }
+    else {
+      clearInterval(intervalId.value)
+      isPlaying.value = false
+    }
+  }, 1000) as unknown as number
+}
+
+watch([selectedYear, selectedMonth, selectedDay], () => {
+  fetchData()
+}, { immediate: true })
+
+watch(isPlaying, (newValue) => {
+  if (newValue) {
+    fetchPlayData()
+  }
+  else {
+    if (intervalId.value !== null) {
+      clearInterval(intervalId.value)
+      intervalId.value = null
+    }
+  }
+})
+</script>
+
+<template>
+  <div v-if="!pending && initialData">
+    <LCircle
+      v-for="marker in initialData.results"
+      :key="marker?.sensor_id"
+      :opacity="1"
+      :fill-color="getTemperatureColor(marker.temperature)"
+      :color="getTemperatureColor(marker.temperature)"
+      :radius="getMarkerRadius(marker.pressure)"
+      :weight="2"
+      :lat-lng="getCoordinates(marker)"
+      draggable
+    />
+  </div>
+  <div v-else class="absolute top-0 h-full w-full z-[1000] backdrop-blur-sm">
+    <div class="flex justify-center items-center h-full">
+      <div class="bg-green-500 rounded-full flex justify-center items-center p-2">
+        <UIcon name="i-heroicons-arrow-path" class="bg-green-950 h-6 w-6 animate-spin" />
+      </div>
+    </div>
+  </div>
+</template>

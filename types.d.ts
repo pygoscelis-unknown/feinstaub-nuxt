@@ -2,7 +2,7 @@ interface ApiResponse<T> {
   count: number
   next: string | null
   previous: string | null
-  results: T[]
+  results: Array<T>
 }
 interface SensorPms1003 {
   P0?: number | null
@@ -15,4 +15,17 @@ interface SensorPms1003 {
   sensor_type: string
   timestamp: string
   url: string
+}
+interface SensorBmp180 {
+  url: string
+  sensor_id: number
+  sensor_type: 'BMP180'
+  location: number
+  lat: number
+  lon: number
+  timestamp: string
+  pressure: number
+  altitude: null
+  pressure_sealevel: null
+  temperature: number
 }

@@ -1,0 +1,30 @@
+name: Run Vitest
+
+on:
+  push:
+    branches:
+      - '*'  # Matches all branches
+  pull_request:
+    branches:
+      - '*'  # Matches all branches
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Specify the Node.js version you need
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run Vitest
+        run: |
+          npm test  # Assuming `npm test` is set up to run Vitest tests
