@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getCoordinates, getMarkerRadius, getTemperatureColor } from '~/utils/utils'
+import { getCoordinates, getCountOfDaysOfMonth, getMarkerRadius, getTemperatureColor } from '~/utils/utils'
 import { useTimeRangeSelector } from '~/composables/timeRangeSelector'
 
 const { selectedDate, selectedYear, isPlaying, selectedMonth, selectedDay } = useTimeRangeSelector()
@@ -16,9 +16,8 @@ async function fetchData() {
 async function fetchPlayData() {
   if (intervalId.value !== null)
     clearInterval(intervalId.value) // Clear any existing interval
-
   intervalId.value = setInterval(() => {
-    if (Number.parseInt(selectedDay.value) < 30) {
+    if (Number.parseInt(selectedDay.value.replace(/^0+/, '')) <= getCountOfDaysOfMonth(Number.parseInt(selectedMonth.value.replace(/^0+/, '')), Number.parseInt(selectedYear.value)) - 1) {
       selectedDay.value = (Number.parseInt(selectedDay.value) + 1).toString().padStart(2, '0')
       selectedDate.value = `${selectedYear.value}-${selectedMonth.value}-${selectedDay.value}`
       fetchData()
