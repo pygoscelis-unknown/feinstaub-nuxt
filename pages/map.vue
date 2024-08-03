@@ -27,10 +27,7 @@ const zoom = ref(6)
 function playMonth() {
   selectedDay.value = '01'
   selectedMonth.value = (months.value.indexOf(selectedMonthToPlay.value) + 1).toString().padStart(2, '0')
-  console.log('playMonth', selectedMonth.value)
-  console.log('playMonth', selectedDay.value)
   selectedDate.value = `2024-${selectedMonth.value}-${selectedDay.value}`
-  console.log('playMonth', selectedDate.value)
   isPlaying.value = true
 }
 

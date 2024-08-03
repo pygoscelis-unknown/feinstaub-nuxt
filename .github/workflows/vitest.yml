@@ -19,12 +19,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Specify the Node.js version you need
+          node-version: '18'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install dependencies
-        run: |
-          npm install
+        run: pnpm install
 
       - name: Run Vitest
-        run: |
-          npm test  # Assuming `npm test` is set up to run Vitest tests
+        run: pnpm test
