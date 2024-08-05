@@ -16,7 +16,7 @@ function formatDate(timestamp: string) {
 </script>
 
 <template>
-  <section class="py-10">
+  <section class="py-20">
     <BaseContainer>
       <section class="pb-20">
         <div class="w-1/2">
@@ -36,12 +36,66 @@ function formatDate(timestamp: string) {
           </div>
         </div>
       </section>
+      <section class="pb-20">
+        <div class="mb-6 flex flex-col items-start">
+          <div class="flex items-center mb-4 gap-2">
+            <h2 class="font-bold text-3xl">
+              Imports
+            </h2>
+            <p class="text-xs text-slate-950 bg-slate-300 flex p-1.5 px-2 rounded flex items-center">
+              <span class="inline-block h-2 w-2 bg-red-500 rounded-full animate-pulse mr-2" />Currently importing
+            </p>
+          </div>
+          <div class="w-full">
+            <div class="grid grid-cols-3 gap-10 font-bold border-b">
+              <span>Sensor type</span>
+              <span>Date</span>
+              <span>Rows</span>
+            </div>
+            <div class="grid grid-cols-3 gap-10 border-b py-2">
+              <span>BMP180</span>
+              <span>2024-08-04 6:00 PM</span>
+              <span>24298</span>
+            </div>
+            <div class="grid grid-cols-3 gap-10 border-b py-2">
+              <span>BME280</span>
+              <span>2024-08-04 6:00 PM</span>
+              <span>24298</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="pb-20">
+        <h2 class="text-3xl mb-6 font-bold">
+          Sensor types
+        </h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <UCard>
+            <h3>BMP180 Barometric pressure and temperature sensor</h3>
+            <p>
+              The BMP180 is a high precision, ultra-low power barometric pressure sensor for use in advanced mobile applications. It offers superior performance with an absolute accuracy of down to 0.03 hPa.
+            </p>
+          </UCard>
+          <UCard>
+            <h3>BME280 Humidity, temperature and pressure sensor</h3>
+            <p>
+              The BME280 is a humidity sensor especially developed for mobile applications and wearables where size and low power consumption are key design constraints.
+            </p>
+          </UCard>
+          <UCard>
+            <h3>SDS011 Particulate matter sensor</h3>
+            <p>
+              The SDS011 is a professional laser dust sensor. It uses laser scattering to ensure high accuracy and consistency.
+            </p>
+          </Ucard>
+        </div>
+      </section>
       <section>
         <div v-if="pending">
           <p>Data loading...</p>
         </div>
         <div v-else-if="data">
-          <h2 class="font-bold mb-6 text-xl">
+          <h2 class="font-bold mb-6 text-3xl">
             Sensor data
           </h2>
           <div class="grid md:grid-cols-3 gap-4">
