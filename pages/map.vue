@@ -35,9 +35,33 @@ function stopPlaying() {
   isPlaying.value = false
 }
 
+const center: Ref<[number, number]> = ref([21.1657, 10.4515])
+
+if (window) {
+  const urlParams = new URLSearchParams(window.location.search)
+  const lat = urlParams.get('lat')
+  const long = urlParams.get('long')
+  const zoomParam = urlParams.get('zoom')
+
+  if (zoomParam)
+    zoom.value = Number.parseInt(zoomParam)
+  if (lat && long)
+    center.value = [Number.parseFloat(lat), Number.parseFloat(long)]
+
+  else
+    window.history.pushState({}, '', `?lat=${center.value[0]}&long=${center.value[1]}`)
+}
+
 function updateLatLng(event: any) {
-  // eslint-disable-next-line no-console
-  console.info('updateLatLng', event)
+  // Parse lat and long and update URL query params
+  const lat = event.lat
+  const long = event.lng
+  window.history.pushState({}, '', `?lat=${lat}&long=${long}&zoom=${zoom.value}`)
+}
+
+function updateZoom(event: any) {
+  zoom.value = event
+  window.history.pushState({}, '', `?lat=${center.value[0]}&long=${center.value[1]}&zoom=${event}`)
 }
 </script>
 
@@ -73,8 +97,9 @@ function updateLatLng(event: any) {
         <div class="relative z-10 rounded-b-2xl overflow-hidden " style="height:66vh; width:100%">
           <LMap
             :zoom="zoom"
-            :center="[51.1657, 10.4515]"
+            :center="center"
             @update:center="updateLatLng($event)"
+            @update:zoom="updateZoom($event)"
           >
             <SensorMarkers />
             <LTileLayer
