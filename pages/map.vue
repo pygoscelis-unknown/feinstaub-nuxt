@@ -100,6 +100,7 @@ function updateZoom(event: any) {
             :center="center"
             @update:center="updateLatLng($event)"
             @update:zoom="updateZoom($event)"
+            :use-global-leaflet="false"
           >
             <SensorMarkers />
             <LTileLayer
