@@ -96,6 +96,7 @@ function updateZoom(event: any) {
         </div>
         <div class="relative z-10 rounded-b-2xl overflow-hidden " style="height:66vh; width:100%">
           <LMap
+            :use-global-leaflet="false"
             :zoom="zoom"
             :center="center"
             @update:center="updateLatLng($event)"
