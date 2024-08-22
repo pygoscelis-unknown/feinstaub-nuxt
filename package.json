@@ -20,7 +20,7 @@
     "v-calendar": "^3.1.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "2.15.0",
+    "@antfu/eslint-config": "2.27.1",
     "@nuxt/devtools": "latest",
     "@nuxt/test-utils": "^3.14.0",
     "@vue/test-utils": "^2.4.6",
