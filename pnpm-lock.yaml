@@ -11,6 +11,9 @@ importers:
       '@nuxt/ui':
         specifier: ^2.16.0
         version: 2.16.0(focus-trap@7.5.4)(nuxt@3.11.2(@parcel/watcher@2.4.1)(@types/node@20.11.17)(@unocss/reset@0.59.4)(encoding@0.1.13)(eslint@9.1.0)(floating-vue@5.2.2(@nuxt/kit@3.12.4(magicast@0.3.4)(rollup@4.15.0))(vue@3.4.23(typescript@5.3.3)))(fuse.js@6.6.2)(ioredis@5.3.2)(optionator@0.9.3)(rollup@4.15.0)(terser@5.27.0)(typescript@5.3.3)(unocss@0.59.4(postcss@8.4.38)(rollup@4.15.0)(vite@5.2.10(@types/node@20.11.17)(terser@5.27.0)))(vite@5.2.10(@types/node@20.11.17)(terser@5.27.0)))(rollup@4.15.0)(vite@5.2.10(@types/node@20.11.17)(terser@5.27.0))(vue@3.4.23(typescript@5.3.3))
+      consola:
+        specifier: ^3.2.3
+        version: 3.2.3
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -7008,7 +7011,7 @@ snapshots:
       colorette: 2.0.20
       consola: 3.2.3
       fast-glob: 3.3.2
-      magic-string: 0.30.10
+      magic-string: 0.30.11
       pathe: 1.1.2
       perfect-debounce: 1.0.0
     transitivePeerDependencies:
@@ -7039,7 +7042,7 @@ snapshots:
       '@unocss/rule-utils': 0.59.4
       css-tree: 2.3.1
       fast-glob: 3.3.2
-      magic-string: 0.30.10
+      magic-string: 0.30.11
       postcss: 8.4.38
 
   '@unocss/preset-attributify@0.59.4':
@@ -7092,7 +7095,7 @@ snapshots:
   '@unocss/rule-utils@0.59.4':
     dependencies:
       '@unocss/core': 0.59.4
-      magic-string: 0.30.10
+      magic-string: 0.30.11
 
   '@unocss/scope@0.59.4': {}
 
@@ -7134,7 +7137,7 @@ snapshots:
       '@unocss/transformer-directives': 0.59.4
       chokidar: 3.6.0
       fast-glob: 3.3.2
-      magic-string: 0.30.10
+      magic-string: 0.30.11
       vite: 5.2.10(@types/node@20.11.17)(terser@5.27.0)
     transitivePeerDependencies:
       - rollup
@@ -11013,7 +11016,7 @@ snapshots:
     dependencies:
       '@antfu/utils': 0.7.7
       defu: 6.1.4
-      jiti: 1.21.0
+      jiti: 1.21.6
 
   uncrypto@0.1.3: {}
 

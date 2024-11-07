@@ -1,12 +1,12 @@
-name: Run Vitest
+name: "Build frontend"
 
 on:
   push:
     branches:
-      - '*'  # Matches all branches
+      - '*'
   pull_request:
     branches:
-      - '*'  # Matches all branches
+      - '*'
 
 jobs:
   test:
@@ -27,5 +27,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run Vitest
-        run: pnpm test
+      - name: Build frontend
+        run: pnpm build

@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 import { useTimeRangeSelector } from '~/composables/timeRangeSelector'
 
-const SENSOR_TYPES = ['bmp180', 'bmp280']
+const { availableSensorTypes, sensorsDisplayedCount, sensorsTotalCount, fetchingSensors } = useSensors()
 const { selectedDate, selectedDay, selectedMonth, isPlaying, selectedSensorType } = useTimeRangeSelector()
 
 const months = ref([
@@ -35,7 +35,7 @@ function stopPlaying() {
   isPlaying.value = false
 }
 
-const center: Ref<[number, number]> = ref([21.1657, 10.4515])
+const center: Ref<[number, number]> = ref([51.0000, 11.0000])
 
 if (window) {
   const urlParams = new URLSearchParams(window.location.search)
@@ -72,7 +72,7 @@ function updateZoom(event: any) {
         <div class="p-5 rounded-t-2xl flex gap-8 bg-slate-100 ">
           <div class="flex flex-col items-start gap-2">
             <BaseLabel text="Select a sensor type" />
-            <USelect v-model="selectedSensorType" :options="SENSOR_TYPES" />
+            <USelect v-model="selectedSensorType" :options="availableSensorTypes" />
           </div>
           <div class="flex flex-col items-start gap-2">
             <BaseLabel text="Select a date" />
@@ -95,7 +95,21 @@ function updateZoom(event: any) {
           </div>
         </div>
         <div class="relative z-10 rounded-b-2xl overflow-hidden " style="height:66vh; width:100%">
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-slate-600 text-slate-100 z-[999] p-2 px-4 rounded-b">
+            <span v-if="!fetchingSensors" class="flex flex-row gap-5 ">
+              <span>Sensors displayed: {{ Number(sensorsDisplayedCount).toLocaleString('en') }}</span>
+              <span>Sensors total: {{ Number(sensorsTotalCount).toLocaleString('en') }}</span>
+            </span>
+            <span v-else>
+              Fetching data
+            </span>
+          </div>
           <LMap
+<<<<<<< Updated upstream
+=======
+            class="z-50"
+            :use-global-leaflet="false"
+>>>>>>> Stashed changes
             :zoom="zoom"
             :center="center"
             @update:center="updateLatLng($event)"
