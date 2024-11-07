@@ -76,6 +76,7 @@ export function getTemperatureColor(temperature: number) {
 }
 
 export function getMarkerRadius(pressure: number) {
+  if (!pressure) return 10
   // Define the expected range of pressure values
   const minPressure = 95000 // Minimum pressure value (e.g., low pressure)
   const maxPressure = 105000 // Maximum pressure value (e.g., high pressure)
@@ -116,4 +117,21 @@ export function getSeverity(P1: number): string {
 
 export function getCountOfDaysOfMonth(month: number, year: number): number {
   return new Date(year, month, 0).getDate()
+}
+
+export function getParticulateMatterColor(p1: number) {
+  if (p1 <= 12)
+    return '#00FF00'; // Green for good air quality
+  else if (p1 <= 35.4)
+    return '#FFFF00'; // Yellow for moderate air quality
+  else if (p1 <= 55.4)
+    return '#FF9900'; // Orange for unhealthy for sensitive groups
+  else if (p1 <= 150.4)
+    return '#FF0000'; // Red for unhealthy
+  else if (p1 <= 250.4)
+    return '#990066'; // Purple for very unhealthy
+  else if (p1 <= 350.4)
+    return '#660066'; // Dark purple for hazardous
+  else
+    return '#7E0023'; // Maroon for very hazardous
 }

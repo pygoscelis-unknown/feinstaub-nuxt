@@ -2,7 +2,10 @@
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
+      // eslint-disable-next-line node/prefer-global/process
       apiBaseUrl: process.env.NUXT_API_BASE_URL,
+      // eslint-disable-next-line node/prefer-global/process
+      availableSensorTypes: process.env.AVAILABLE_SENSOR_TYPES!.split(', ').map(s => s.trim()),
     },
   },
 
@@ -14,6 +17,7 @@ export default defineNuxtConfig({
   nitro: {
     runtimeConfig: {
       public: {
+        // eslint-disable-next-line node/prefer-global/process
         apiBaseUrl: process.env.NUXT_API_BASE_URL,
       },
     },

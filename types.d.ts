@@ -29,3 +29,16 @@ interface SensorBmp180 {
   pressure_sealevel: null
   temperature: number
 }
+
+interface SensorPms1003 {
+  url: string
+  sensor_id: number
+  sensor_type: 'PMS1003'
+  location: number
+  lat: number
+  lon: number
+  timestamp: string
+  P1: number
+  P2: number
+  P0: number | null
+}
