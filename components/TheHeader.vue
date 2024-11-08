@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <header class="py-4 border-b-2">
+  <header class="dark:bg-zinc-900 py-4">
     <BaseContainer class="flex justify-between">
       <div class="flex gap-6">
         <NuxtLink to="/">

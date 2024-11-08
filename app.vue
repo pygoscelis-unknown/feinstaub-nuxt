@@ -1,7 +1,7 @@
 <template>
   <NuxtLoadingIndicator />
   <TheHeader />
-  <main>
+  <main class="dark:bg-zinc-900">
     <NuxtPage />
   </main>
   <TheFooter />

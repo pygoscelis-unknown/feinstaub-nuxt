@@ -10,7 +10,11 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
-  modules: ['@nuxt/ui', 'nuxt3-leaflet', '@nuxt/test-utils/module'],
+  modules: ['@nuxt/ui', 'nuxt3-leaflet', '@nuxt/test-utils/module', ['@nuxtjs/google-fonts', {
+    families: {
+      'Titillium+Web': [200, 400, 600, 800],
+    },
+  }]],
   ui: {
     global: true,
   },
