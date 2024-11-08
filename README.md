@@ -1,21 +1,12 @@
-# feinstaub.app Frontend
+# feinstaub-nuxt
+This repository holds the code for the frontend of the Feinstaub project. This project uses data from [sensor.community](https://sensor.community/) and tries to display it in an interactive way.
 
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
 ## Development Server
@@ -23,54 +14,9 @@ bun install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 ## Changelog
 
@@ -82,8 +28,6 @@ npx changelogen@latest --bump
 npx changelogen@latest --release
 ```
 
-<<<<<<< Updated upstream
-=======
 ## Docker
 We provide a Dockerfile to build a Docker image for the frontend. You can build the image with the following command:
 ```bash
@@ -207,4 +151,3 @@ docker run -p 3000:3000 feinstaub-frontend
     - High sensitivity and accuracy.
     - Uses laser scattering for particle detection.
     - Ideal for air quality monitoring applications.
->>>>>>> Stashed changes

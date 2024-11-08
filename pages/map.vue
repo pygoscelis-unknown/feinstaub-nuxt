@@ -105,11 +105,8 @@ function updateZoom(event: any) {
             </span>
           </div>
           <LMap
-<<<<<<< Updated upstream
-=======
             class="z-50"
             :use-global-leaflet="false"
->>>>>>> Stashed changes
             :zoom="zoom"
             :center="center"
             @update:center="updateLatLng($event)"

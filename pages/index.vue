@@ -18,7 +18,7 @@ const { availableSensorTypes } = useSensors()
 </script>
 
 <template>
-  <section class="bg-slate-100  py-20">
+  <section class="bg-slate-100 dark:bg-black  py-20">
     <BaseContainer>
       <div class="sm:w-2/3 md:w-1/2">
         <h1 class="text-5xl font-bold mb-6">
