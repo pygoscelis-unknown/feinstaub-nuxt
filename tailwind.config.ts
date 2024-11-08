@@ -4,4 +4,9 @@ export default <Partial<Config>> {
   content: [
     'docs/content/**/*.md',
   ],
+  theme: {
+    fontFamily: {
+      sans: ['Titillium Web', 'sans-serif'],
+    },
+  },
 }
