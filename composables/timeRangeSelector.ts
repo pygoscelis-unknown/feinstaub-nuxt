@@ -2,7 +2,7 @@ export function useTimeRangeSelector() {
   const selectedDate = useState('selectedDate', () => '2024-01-01')
   const isPlaying = useState<boolean>('isPlaying', () => false)
 
-  const selectedSensorType = useState('selectedSensorType', () => 'bme280')
+  const selectedSensorType = useState('selectedSensorType', () => 'hpm')
 
   const selectedYear = ref<string>(selectedDate.value.split('-')[0])
   const selectedMonth = ref<string>(selectedDate.value.split('-')[1])

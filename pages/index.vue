@@ -1,20 +1,25 @@
 <script setup lang='ts'>
-const { data, pending, error } = await useFetch<ApiResponse<SensorBme280>>(`/api/bmp180`, { method: 'POST' })
-
-interface SensorBme280 {
-  sensor_id: string
-  sensor_type: string
-  lat: number
-  lon: number
-  timestamp: string
-}
-
-function formatDate(timestamp: string) {
-  const date = new Date(timestamp)
-  return new Intl.DateTimeFormat('de', { year: 'numeric', month: 'long', day: 'numeric' }).format(date)
-}
-
 const { availableSensorTypes } = useSensors()
+
+const sensorContent
+  = [
+    {
+      title: 'HPM (Honeywell Particle Sensor)',
+      text: 'The HPM series is a high-accuracy particulate matter sensor that uses laser-based light scattering to measure PM2.5 and PM10 concentrations in the air. It is widely used in air quality monitoring systems due to its reliability and long lifespan.',
+    },
+    {
+      title: 'PMS3003',
+      text: 'The PMS3003 is a laser-based particulate matter sensor from Plantower that measures PM1.0, PM2.5, and PM10. It\'s commonly used in consumer-grade air purifiers, IoT devices, and air quality monitoring stations.',
+    },
+    {
+      title: 'PMS6003',
+      text: 'The PMS6003, also from Plantower, is an upgraded version of the PMS3003 with improved measurement stability and accuracy for PM1.0, PM2.5, and PM10. It is used in environmental monitoring and smart home applications.',
+    },
+    {
+      title: 'PPD42NS',
+      text: 'The PPD42NS is an optical dust sensor by Sharp that detects particulate matter (particularly PM2.5) using infrared light scattering. It is a low-cost option for basic air quality applications like DIY projects and simple air monitors.',
+    },
+  ]
 </script>
 
 <template>
@@ -104,29 +109,14 @@ const { availableSensorTypes } = useSensors()
         Sensor types
       </h2>
       <div class="grid md:grid-cols-3 gap-4">
-        <UCard>
+        <UCard v-for="(sensor, index) in sensorContent" :key="`${sensor.title}-${index}`">
           <h3 class="font-bold mb-4">
-            BMP180 Barometric pressure and temperature sensor
+            {{ sensor.title }}
           </h3>
           <p>
-            The BMP180 is a high precision, ultra-low power barometric pressure sensor for use in advanced mobile
-            applications. It offers superior performance with an absolute accuracy of down to 0.03 hPa.
+            {{ sensor.text }}
           </p>
         </UCard>
-        <UCard>
-          <h3>BME280 Humidity, temperature and pressure sensor</h3>
-          <p>
-            The BME280 is a humidity sensor especially developed for mobile applications and wearables where size and
-            low power consumption are key design constraints.
-          </p>
-        </UCard>
-        <UCard>
-          <h3>SDS011 Particulate matter sensor</h3>
-          <p>
-            The SDS011 is a professional laser dust sensor. It uses laser scattering to ensure high accuracy and
-            consistency.
-          </p>
-        </Ucard>
       </div>
     </BaseContainer>
   </section>
