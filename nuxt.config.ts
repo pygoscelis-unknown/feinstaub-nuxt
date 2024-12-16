@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     families: {
       'Titillium+Web': [200, 400, 600, 800],
     },
-  }]],
+  }], '@vueuse/nuxt'],
   ui: {
     global: true,
   },

@@ -14,19 +14,19 @@ async function fetchData() {
     fetchingSensors.value = true
     const response = await $fetch<ApiResponse<SensorBmp180 | SensorPms1003>>(`/api/${selectedSensorType.value}`, {
       method: 'POST',
-      query: {year: selectedYear.value, month: selectedMonth.value, day: selectedDay.value}
+      query: { year: selectedYear.value, month: selectedMonth.value, day: selectedDay.value },
     })
     initialData.value = response
     pending.value = false
     fetchingSensors.value = false
     sensorsDisplayedCount.value = response.results.length
     sensorsTotalCount.value = response.count
-  } catch (e) {
+  }
+  catch (e) {
     console.error(e)
     pending.value = false
     fetchingSensors.value = false
   }
-
 }
 
 async function fetchPlayData() {
@@ -63,24 +63,34 @@ watch(isPlaying, (newValue) => {
 </script>
 
 <template>
-  <div v-if="!pending && initialData">
+  <div v-if="initialData">
+    <!-- TODO: Use component-is -->
     <div v-if="selectedSensorType === 'pms1003'">
-      <SensorPms1003 v-for="marker in initialData.results" v-bind="marker" />
+      <SensorPms1003 v-for="(marker, index) in initialData.results" v-bind="marker" :key="`sensor-pms1003-${index}`" />
+    </div>
+    <div v-else-if="selectedSensorType === 'pms3003'">
+      <SensorPms3003 v-for="(marker, index) in initialData.results" v-bind="marker" :key="`sensor-pms3003-${index}`" />
     </div>
     <div v-else-if="selectedSensorType === 'pms5003'">
-      <SensorPms5003 v-for="marker in initialData.results" v-bind="marker" />
+      <SensorPms5003 v-for="(marker, index) in initialData.results" v-bind="marker" :key="`sensor-pms5003-${index}`" />
+    </div>
+    <div v-else-if="selectedSensorType === 'hpm'">
+      <SensorHpm v-for="(marker, index) in initialData.results" v-bind="marker" :key="`sensor-hpm-${index}`" />
+    </div>
+    <div v-else-if="selectedSensorType === 'ppd42ns'">
+      <SensorPpd42ns v-for="(marker, index) in initialData.results" v-bind="marker" :key="`sensor-PPD42NS-${index}`" />
     </div>
     <div v-else>
       <LCircle
-          v-for="marker in initialData.results"
-          :key="marker?.sensor_id"
-          :opacity="1"
-          :fill-color="getTemperatureColor(marker.temperature)"
-          :color="getTemperatureColor(marker.temperature)"
-          :radius="getMarkerRadius(marker.pressure)"
-          :weight="2"
-          :lat-lng="getCoordinates(marker)"
-          draggable
+        v-for="(marker, index) in initialData.results"
+        :key="`sensor-${index}-${marker?.sensor_id}`"
+        :opacity="1"
+        :fill-color="getTemperatureColor(marker.temperature)"
+        :color="getTemperatureColor(marker.temperature)"
+        :radius="getMarkerRadius(marker.pressure)"
+        :weight="2"
+        :lat-lng="getCoordinates(marker)"
+        draggable
       />
     </div>
   </div>
