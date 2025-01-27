@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ref } from 'vue'
+import { onMounted, ref, watch, watchEffect } from 'vue'
 import { useMagicKeys } from '@vueuse/core'
 import { useTimeRangeSelector } from '~/composables/timeRangeSelector'
 import DebugConsole from '~/components/DebugConsole.vue'
@@ -10,6 +10,7 @@ const { selectedDate, selectedDay, selectedMonth, selectedYear, isPlaying, selec
 selectedDate.value = getFirstDayOfPreviousMonth().toISOString().split('T')[0]
 
 const zoom = ref(6)
+const center: Ref<[number, number]> = ref([51.0000, 11.0000])
 
 function playMonth() {
   isPlaying.value = true
@@ -20,42 +21,94 @@ function stopPlaying() {
 }
 
 /**
- * Get current date and based on that, select the first day of the previous month
+ * URL Structure
+ * ?sensorType=<SENSORTYPE>&year=<YEAR>&month=<MONTH>&day=<DAY>&lat=<LAT>&long=<LONG>&zoom=<ZOOM>
  */
+
+function getUrlParams() {
+  const params = new URLSearchParams(window.location.search)
+
+  return {
+    sensorType: params.get('sensorType') || '',
+    year: params.get('year') || '',
+    month: params.get('month') || '',
+    day: params.get('day') || '',
+    lat: Number.parseFloat(params.get('lat')) || center.value[0],
+    long: Number.parseFloat(params.get('long')) || center.value[1],
+    zoom: Number.parseInt(params.get('zoom')) || zoom.value,
+  }
+}
+
+function setUrlParams({ sensorType, year, month, day, lat, long, zoom }) {
+  const params = new URLSearchParams()
+
+  if (sensorType)
+    params.set('sensorType', sensorType)
+  if (year)
+    params.set('year', year)
+  if (month)
+    params.set('month', month)
+  if (day)
+    params.set('day', day)
+  if (lat)
+    params.set('lat', lat.toString())
+  if (long)
+    params.set('long', long.toString())
+  if (zoom)
+    params.set('zoom', zoom.toString())
+
+  window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`)
+}
+
+onMounted(() => {
+  if (window) {
+    const params = getUrlParams()
+    selectedSensorType.value = params.sensorType || selectedSensorType.value
+    selectedYear.value = params.year || selectedYear.value
+    selectedMonth.value = params.month || selectedMonth.value
+    selectedDay.value = params.day || selectedDay.value
+    center.value = [params.lat, params.long]
+    zoom.value = params.zoom
+
+    setUrlParams({
+      sensorType: selectedSensorType.value,
+      year: selectedYear.value,
+      month: selectedMonth.value,
+      day: selectedDay.value,
+      lat: center.value[0],
+      long: center.value[1],
+      zoom: zoom.value,
+    })
+  }
+})
+
+watch([selectedSensorType, selectedYear, selectedMonth, selectedDay, zoom, center], () => {
+  setUrlParams({
+    sensorType: selectedSensorType.value,
+    year: selectedYear.value,
+    month: selectedMonth.value,
+    day: selectedDay.value,
+    lat: center.value[0],
+    long: center.value[1],
+    zoom: zoom.value,
+  })
+})
+
 function getFirstDayOfPreviousMonth() {
   const date = new Date()
-  date.setMonth(date.getMonth() - 1)
+  date.setMonth(date.getMonth() - 2)
   date.setDate(1)
   return date
-}
-getFirstDayOfPreviousMonth()
-
-const center: Ref<[number, number]> = ref([51.0000, 11.0000])
-
-if (window) {
-  const urlParams = new URLSearchParams(window.location.search)
-  const lat = urlParams.get('lat')
-  const long = urlParams.get('long')
-  const zoomParam = urlParams.get('zoom')
-
-  if (zoomParam)
-    zoom.value = Number.parseInt(zoomParam)
-  if (lat && long)
-    center.value = [Math.round(Number.parseFloat(lat) * 10000) / 10000, Math.round(Number.parseFloat(long) * 10000) / 10000]
-
-  else
-    window.history.pushState({}, '', `?lat=${center.value[0]}&long=${center.value[1]}`)
 }
 
 function updateLatLng(event: any) {
   const lat = Math.round(event.lat * 10000) / 10000
   const long = Math.round(event.lng * 10000) / 10000
-  window.history.pushState({}, '', `?lat=${lat}&long=${long}&zoom=${zoom.value}`)
+  center.value = [lat, long]
 }
 
 function updateZoom(event: any) {
   zoom.value = event
-  window.history.pushState({}, '', `?lat=${center.value[0]}&long=${center.value[1]}&zoom=${event}`)
 }
 
 const showDebugConsole = ref(false)
@@ -66,6 +119,8 @@ watchEffect(() => {
   if (shift?.value && space?.value && d?.value)
     showDebugConsole.value = !showDebugConsole.value
 })
+
+const attributions = `&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`
 </script>
 
 <template>
@@ -112,8 +167,8 @@ watchEffect(() => {
           >
             <SensorMarkers />
             <LTileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+              url="https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png"
+              :attribution="attributions"
               layer-type="base"
               name="OpenStreetMap"
             />

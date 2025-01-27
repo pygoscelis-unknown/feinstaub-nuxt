@@ -14,7 +14,7 @@ async function fetchData() {
     fetchingSensors.value = true
     const response = await $fetch<ApiResponse<SensorBmp180 | SensorPms1003>>(`/api/${selectedSensorType.value}`, {
       method: 'POST',
-      query: { year: selectedYear.value, month: selectedMonth.value, day: selectedDay.value },
+      query: { year: selectedYear.value, month: selectedMonth.value, day: selectedDay.value, hour: 0o5 },
     })
     initialData.value = response
     pending.value = false
@@ -73,6 +73,9 @@ watch(isPlaying, (newValue) => {
     </div>
     <div v-else-if="selectedSensorType === 'pms5003'">
       <SensorPms5003 v-for="(marker, index) in initialData.results" v-bind="marker" :key="`sensor-pms5003-${index}`" />
+    </div>
+    <div v-else-if="selectedSensorType === 'pms6003'">
+      <SensorPms6003 v-for="(marker, index) in initialData.results" v-bind="marker" :key="`sensor-pms6003-${index}`" />
     </div>
     <div v-else-if="selectedSensorType === 'hpm'">
       <SensorHpm v-for="(marker, index) in initialData.results" v-bind="marker" :key="`sensor-hpm-${index}`" />

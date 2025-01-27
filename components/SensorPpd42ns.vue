@@ -9,9 +9,9 @@ interface SensorPpd42ns {
   lat: number
   lon: number
   timestamp: string
-  P1: number
-  P2: number
-  P0: number | null
+  P1?: number
+  P2?: number
+  P0?: number | null
 }
 
 const props = defineProps<SensorPpd42ns>()

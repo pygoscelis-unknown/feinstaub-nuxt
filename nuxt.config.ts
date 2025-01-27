@@ -10,14 +10,17 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
+
   modules: ['@nuxt/ui', 'nuxt3-leaflet', '@nuxt/test-utils/module', ['@nuxtjs/google-fonts', {
     families: {
       'Titillium+Web': [200, 400, 600, 800],
     },
   }], '@vueuse/nuxt'],
+
   ui: {
     global: true,
   },
+
   nitro: {
     runtimeConfig: {
       public: {
@@ -31,4 +34,6 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  compatibilityDate: '2025-01-22',
 })
