@@ -64,47 +64,6 @@ const sensorContent
       </div>
     </BaseContainer>
   </section>
-  <section id="recent-imports" class="bg-slate-100 dark:bg-zinc-900 py-20">
-    <BaseContainer class="mb-6 flex flex-col items-start">
-      <div class="flex items-center mb-4 gap-2">
-        <h2 class="font-bold text-3xl">
-          Recent imports
-        </h2>
-      </div>
-      <div class="w-full">
-        <div class="grid grid-cols-4 gap-10 font-bold border-b">
-          <span>Date</span>
-          <span>Sensor type</span>
-          <span>Rows</span>
-          <span>Status</span>
-        </div>
-        <div class="grid grid-cols-4 gap-10 border-b py-2">
-          <span>2024-08-04 6:00 PM</span>
-          <span>BMP180</span>
-          <span>24298</span>
-          <div>
-            <span
-              class="animate-pulse text-xs text-yellow-950 bg-yellow-300 dark:bg-green-950 dark:text-green-200 p-1.5 px-2 rounded inline"
-            >
-              In progress
-            </span>
-          </div>
-        </div>
-        <div class="grid grid-cols-4 gap-10 border-b py-2">
-          <span>2024-08-04 6:00 PM</span>
-          <span>BME280</span>
-          <span>24298</span>
-          <div>
-            <span
-              class="text-xs text-green-950 bg-green-300 dark:bg-green-950 dark:text-green-200 p-1.5 px-2 rounded"
-            >
-              Done
-            </span>
-          </div>
-        </div>
-      </div>
-    </BaseContainer>
-  </section>
   <section id="sensor-types" class="py-20">
     <BaseContainer>
       <h2 class="text-3xl mb-6 font-bold">
