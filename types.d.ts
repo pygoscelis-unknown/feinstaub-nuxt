@@ -1,44 +1,47 @@
-interface ApiResponse<T> {
-  count: number
-  next: string | null
-  previous: string | null
-  results: Array<T>
+interface BaseSensor {
+  url: string
+  sensor_id: number
+  location: number
+  lat: number
+  lon: number
+  timestamp: string
 }
-interface SensorPms1003 {
-  P0?: number | null
+
+interface ParticleSensor extends BaseSensor {
   P1: number
   P2: number
-  lat: number
-  location: number
-  lon: number
-  sensor_id: number
-  sensor_type: string
-  timestamp: string
-  url: string
+  P0: number | null
 }
-interface SensorBmp180 {
-  url: string
-  sensor_id: number
+
+interface SensorPms1003 extends ParticleSensor {
+  sensor_type: 'PMS1003'
+}
+
+interface SensorPms3003 extends ParticleSensor {
+  sensor_type: 'PMS3003'
+}
+
+interface SensorPms5003 extends ParticleSensor {
+  sensor_type: 'PMS5003'
+}
+
+interface SensorPpd42ns extends ParticleSensor {
+  sensor_type: 'PPD42NS'
+}
+
+interface SensorBmp180 extends BaseSensor {
   sensor_type: 'BMP180'
-  location: number
-  lat: number
-  lon: number
-  timestamp: string
   pressure: number
   altitude: null
   pressure_sealevel: null
   temperature: number
 }
 
-interface SensorPms1003 {
-  url: string
-  sensor_id: number
-  sensor_type: 'PMS1003'
-  location: number
-  lat: number
-  lon: number
-  timestamp: string
-  P1: number
-  P2: number
-  P0: number | null
+interface ApiResponse<T> {
+  count: number
+  next: string | null
+  previous: string | null
+  results: Array<T>
 }
+
+type SensorType = 'PMS1003' | 'PMS3003' | 'PMS5003' | 'PPD42NS' | 'BMP180'
