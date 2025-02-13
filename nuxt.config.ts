@@ -5,7 +5,7 @@ export default defineNuxtConfig({
       // eslint-disable-next-line node/prefer-global/process
       apiBaseUrl: process.env.NUXT_API_BASE_URL,
       // eslint-disable-next-line node/prefer-global/process
-      availableSensorTypes: process.env.AVAILABLE_SENSOR_TYPES!.split(', ').map(s => s.trim()),
+      availableSensorTypes: process.env.AVAILABLE_SENSOR_TYPES?.split(', ').map(s => s.trim()) || [],
     },
   },
 
@@ -35,5 +35,5 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2025-01-22',
+  compatibilityDate: '2025-01-27',
 })
