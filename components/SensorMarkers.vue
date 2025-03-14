@@ -2,7 +2,7 @@
 import { getCoordinates, getCountOfDaysOfMonth, getMarkerRadius, getTemperatureColor } from '~/utils/utils'
 import { useTimeRangeSelector } from '~/composables/timeRangeSelector'
 
-const { selectedSensorType, selectedDate, selectedYear, isPlaying, selectedMonth, selectedDay } = useTimeRangeSelector()
+const { selectedHour, selectedSensorType, selectedDate, selectedYear, isPlaying, selectedMonth, selectedDay } = useTimeRangeSelector()
 const { sensorsDisplayedCount, sensorsTotalCount, fetchingSensors } = useSensors()
 const pending = ref(true)
 const initialData = ref()
@@ -14,7 +14,7 @@ async function fetchData() {
     fetchingSensors.value = true
     const response = await $fetch<ApiResponse<SensorBmp180 | SensorPms1003>>(`/api/${selectedSensorType.value}`, {
       method: 'POST',
-      query: { year: selectedYear.value, month: selectedMonth.value, day: selectedDay.value, hour: 0o5 },
+      query: { year: selectedYear.value, month: selectedMonth.value, day: selectedDay.value, hour: selectedHour.value },
     })
     initialData.value = response
     pending.value = false

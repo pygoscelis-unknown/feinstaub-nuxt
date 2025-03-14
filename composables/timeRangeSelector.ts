@@ -7,6 +7,7 @@ export function useTimeRangeSelector() {
   const selectedYear = ref<string>(selectedDate.value.split('-')[0])
   const selectedMonth = ref<string>(selectedDate.value.split('-')[1])
   const selectedDay = ref<string>(selectedDate.value.split('-')[2])
+  const selectedHour = ref<string>('01')
 
   watch(selectedDate, (newVal) => {
     selectedYear.value = newVal.split('-')[0]
@@ -21,5 +22,6 @@ export function useTimeRangeSelector() {
     selectedYear,
     selectedMonth,
     selectedDay,
+    selectedHour
   }
 }

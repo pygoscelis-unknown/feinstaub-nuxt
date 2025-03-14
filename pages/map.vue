@@ -5,11 +5,11 @@ import { useTimeRangeSelector } from '~/composables/timeRangeSelector'
 import DebugConsole from '~/components/DebugConsole.vue'
 
 const { availableSensorTypes, sensorsDisplayedCount, sensorsTotalCount } = useSensors()
-const { selectedDate, selectedDay, selectedMonth, selectedYear, isPlaying, selectedSensorType } = useTimeRangeSelector()
+const { selectedHour, selectedDate, selectedDay, selectedMonth, selectedYear, isPlaying, selectedSensorType } = useTimeRangeSelector()
 
 selectedDate.value = getFirstDayOfPreviousMonth().toISOString().split('T')[0]
 
-const zoom = ref(6)
+const zoom = ref(3)
 const center: Ref<[number, number]> = ref([51.0000, 11.0000])
 
 function playMonth() {
@@ -33,13 +33,14 @@ function getUrlParams() {
     year: params.get('year') || '',
     month: params.get('month') || '',
     day: params.get('day') || '',
+    hour: params.get('hour') || '',
     lat: Number.parseFloat(params.get('lat')) || center.value[0],
     long: Number.parseFloat(params.get('long')) || center.value[1],
     zoom: Number.parseInt(params.get('zoom')) || zoom.value,
   }
 }
 
-function setUrlParams({ sensorType, year, month, day, lat, long, zoom }) {
+function setUrlParams({ sensorType, year, month, day, hour, lat, long, zoom }) {
   const params = new URLSearchParams()
 
   if (sensorType)
@@ -50,6 +51,8 @@ function setUrlParams({ sensorType, year, month, day, lat, long, zoom }) {
     params.set('month', month)
   if (day)
     params.set('day', day)
+  if(hour)
+    params.set('hour', hour)
   if (lat)
     params.set('lat', lat.toString())
   if (long)
@@ -67,6 +70,7 @@ onMounted(() => {
     selectedYear.value = params.year || selectedYear.value
     selectedMonth.value = params.month || selectedMonth.value
     selectedDay.value = params.day || selectedDay.value
+    selectedHour.value = params.hour || selectedHour.value
     center.value = [params.lat, params.long]
     zoom.value = params.zoom
 
@@ -75,6 +79,7 @@ onMounted(() => {
       year: selectedYear.value,
       month: selectedMonth.value,
       day: selectedDay.value,
+      hour: selectedHour.value,
       lat: center.value[0],
       long: center.value[1],
       zoom: zoom.value,
@@ -88,6 +93,7 @@ watch([selectedSensorType, selectedYear, selectedMonth, selectedDay, zoom, cente
     year: selectedYear.value,
     month: selectedMonth.value,
     day: selectedDay.value,
+    hour: selectedHour.value,
     lat: center.value[0],
     long: center.value[1],
     zoom: zoom.value,
@@ -120,7 +126,9 @@ watchEffect(() => {
     showDebugConsole.value = !showDebugConsole.value
 })
 
-const attributions = `&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`
+const attributions = `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`
+
+const tileUrl = 'https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png'
 </script>
 
 <template>
@@ -167,10 +175,11 @@ const attributions = `&copy; <a href="https://www.stadiamaps.com/" target="_blan
           >
             <SensorMarkers />
             <LTileLayer
-              url="https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png"
+              :url="tileUrl"
               :attribution="attributions"
               layer-type="base"
-              name="OpenStreetMap"
+              name="OpenStreetMap DE"
+              :maxZoom="18"
             />
           </LMap>
         </div>
