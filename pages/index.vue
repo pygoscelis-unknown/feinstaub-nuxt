@@ -23,22 +23,22 @@ const sensorContent
 </script>
 
 <template>
-  <section id="start" class="bg-slate-100 dark:bg-zinc-900 py-20">
+  <section id="start" class="bg-slate-50 dark:bg-zinc-900 py-20">
     <BaseContainer>
       <div class="sm:w-2/3 md:w-1/2">
         <h1 class="text-5xl font-bold mb-6">
           feinstaub.app
         </h1>
         <p class="text-xl">
-          This is a project inspired by <a class="text-green-500 font-semibold" href="https://sensor.community">sensor.community</a>. We import data from
+          This is a project inspired by <a class="text-green-700 font-semibold" href="https://sensor.community">sensor.community</a>. We import data from
           their archive and display them to try to bring them into different contexts to make the data even more
           useful.
         </p>
         <div class="flex gap-2">
-          <UButton to="/map" type="" class="mt-6">
+          <UButton color="primary" variant="solid" to="/map" class="mt-6 !bg-green-800 hover:!bg-green-900">
             Show Map
           </UButton>
-          <UButton target="_blank" to="https://sensor.community" variant="outline" class="mt-6">
+          <UButton color="primary" variant="outline" target="_blank" to="https://sensor.community" class="mt-6 !text-green-800 !ring-green-800 hover:!bg-green-50">
             Go to sensor.community
           </UButton>
         </div>
