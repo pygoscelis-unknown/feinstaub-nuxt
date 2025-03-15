@@ -1,8 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en'
+      }
+    }
+  },
+
   site: {
     url: 'https://feinstaub.pygoscelis.net',
     name: 'feinstaub.pygoscelis.net',
+    defaultLocale: 'en',
   },
 
   seo: {
