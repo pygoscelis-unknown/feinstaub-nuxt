@@ -55,11 +55,11 @@ const sensorContent
       <div class="flex flex-wrap gap-2">
         <NuxtLink
           v-for="(sensorType, index) in availableSensorTypes"
-          :key="`sensor-type-${index}-${sensorType}`"
-          :to="`/map?sensorType=${sensorType}`"
+          :key="`sensor-type-${index}-${sensorType.value}`"
+          :to="`/map?sensorType=${sensorType.value}`"
           class="text-xs text-slate-950 bg-slate-300 dark:bg-green-950 dark:text-green-200 flex p-1.5 px-2 rounded flex items-center"
         >
-          {{ sensorType }}
+          {{ sensorType.label }}
         </NuxtLink>
       </div>
     </BaseContainer>

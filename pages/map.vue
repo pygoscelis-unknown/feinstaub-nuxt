@@ -4,7 +4,7 @@ import { useMagicKeys } from '@vueuse/core'
 import { useTimeRangeSelector } from '~/composables/timeRangeSelector'
 import DebugConsole from '~/components/DebugConsole.vue'
 
-const { availableSensorTypes, sensorsDisplayedCount, sensorsTotalCount } = useSensors()
+const { availableSensorTypes, sensorsDisplayedCount, sensorsTotalCount, fetchingSensorTypes } = useSensors()
 const { selectedHour, selectedDate, selectedDay, selectedMonth, selectedYear, isPlaying, selectedSensorType } = useTimeRangeSelector()
 
 selectedDate.value = getFirstDayOfPreviousMonth().toISOString().split('T')[0]
@@ -138,7 +138,14 @@ const tileUrl = 'https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png'
         <div class="p-5 rounded-t-2xl flex items-end gap-8 bg-slate-100 ">
           <div class="flex flex-col items-start gap-2">
             <BaseLabel text="Select a sensor type" />
-            <USelectMenu v-model="selectedSensorType" :options="availableSensorTypes" />
+            <USelectMenu 
+              v-model="selectedSensorType" 
+              :options="availableSensorTypes"
+              option-attribute="value"
+              value-attribute="value"
+              :loading="fetchingSensorTypes"
+              placeholder="Select a sensor type"
+            />
           </div>
           <div class="flex flex-col items-start gap-2">
             <BaseLabel text="Select a date" />
